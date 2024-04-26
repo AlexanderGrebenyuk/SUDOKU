@@ -1,7 +1,6 @@
+const { log } = require("console");
+
 function read(n) {
-  /**
-   * Прочесть файл puzzles.txt в кодировке 'utf-8' и вернуть эти данные из функции
-   */
   const fs = require("fs");
   let arraySud1 = [];
   const data = fs
@@ -23,7 +22,7 @@ function solve() {
       if (sudoku[i][j] === "-") {
         sudoku[i][j] = Math.floor(Math.random() * 8) + 1;
       }
-      sudoku[i][j] = +sudoku[i][j]
+      sudoku[i][j] = +sudoku[i][j];
       // for (let k = 0; k < sudoku[i][j].length; k++) {
       //   if (sudoku[i][j][k] !== "number") {
       //     Number(sudoku[i][j][k]);
@@ -33,21 +32,21 @@ function solve() {
     }
   }
 
-  /**
-   * Принимает игровое поле в том формате, в котором его вернули из функции read.
-   * Возвращает игровое поле после попытки его решить.
-   */
   return sudoku;
 }
 console.table(solve());
-
 function isSolved() {
-  /**
-   * Принимает игровое поле в том формате, в котором его вернули из функции solve.
-   * Возвращает булевое значение — решено это игровое поле или нет.
-   */
+  const trueSudok = solve();
+  console.table(trueSudok);
+  for (el of trueSudok) {
+    const elS = [...new Set(el)].toString();
+    if (el.toString() !== elS) {
+      isSolved();
+    }
+    return trueSudok;
+  }
 }
-
+console.table(isSolved());
 function prettyBoard() {
   /**
    * Принимает игровое поле в том формате, в котором его вернули из функции solve.
